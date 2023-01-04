@@ -1,0 +1,30 @@
+pragma solidity ^0.6.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/math/SafeMath.sol";
+
+contract CoinFlip {
+    using SafeMath for uint;
+
+    constructor() public {
+    }
+
+    function() external payable {
+        // Determine the bet amount based on the amount of ETH sent by the player
+        uint betAmount = msg.value;
+
+        require(betAmount >= 0.01 ether && betAmount <= 0.05 ether, "Bet amount must be between 0.01 and 0.05 ETH.");
+
+        // Generate a random number using the keccak256 hash function
+        uint randomNumber = uint(keccak256(abi.encodePacked(now, msg.sender))) % 100;
+
+        if (randomNumber < 50) {
+            // Set the gas price for the payout to 25 gwei
+            uint gasPrice = 25 gwei;
+
+            // Send the payout to the player, including the desired gas price
+            msg.sender.transfer(betAmount * 2, gasPrice);
+        } else {
+            // House wins, player loses their bet
+        }
+    }
+}
